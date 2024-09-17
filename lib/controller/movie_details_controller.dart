@@ -2,6 +2,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:movie_db/controller/base/state_controller.dart';
+import 'package:movie_db/model/movie_casts_model.dart';
 import 'package:movie_db/model/movie_details_model.dart';
 import 'package:movie_db/model/movie_videos_model.dart';
 import 'package:movie_db/service/movie_details_service.dart';
@@ -30,7 +31,7 @@ class MovieDetailsController extends StateController {
   String get releaseDate => _movieDetailsModel?.releaseDate ?? '';
   String get posterPath => _movieDetailsModel?.posterPath.baseImageUrl ?? '';
   List<String> get genres => _movieDetailsModel?.genres?.map((e) => e.name ?? '').toList() ?? [];
-  String get displayGenres => genres.join(',');
+  String get displayGenres => genres.join(', ');
   String get status => _movieDetailsModel?.status ?? '';
   String get oriLanguage => _movieDetailsModel?.originalLanguage ?? '';
   num get budget => _movieDetailsModel?.budget ?? 0;
@@ -45,6 +46,9 @@ class MovieDetailsController extends StateController {
     return '  (${temp ~/ 60}h ${temp % 60}m)';
   }
 
+  List<Cast> castsList = [];
+  List<Cast> get cutCastsList => castsList.take(10).toList();
+
   @override
   void onInit() {
     movieId = Get.arguments ?? 0;
@@ -56,6 +60,7 @@ class MovieDetailsController extends StateController {
   initData() async {
     await _getDetails();
     await _getVideos();
+    await _getCasts();
     update();
   }
 
@@ -68,9 +73,16 @@ class MovieDetailsController extends StateController {
 
   _getVideos() async {
     var entity = await _movieDetailsService.getMovieVideos(movieId);
-    if (checkEntity(entity)) {
+    if (checkEntity(entity, needStopLoading: false)) {
       oriVideosList = entity.data?.results?.where(
               (element) => element.type == 'Trailer').toList() ?? [];
+    }
+  }
+
+  _getCasts() async {
+    var entity = await _movieDetailsService.getMovieCasts(movieId);
+    if (checkEntity(entity)) {
+      castsList = entity.data?.cast ?? [];
     }
   }
 }

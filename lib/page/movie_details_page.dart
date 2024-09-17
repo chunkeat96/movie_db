@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:movie_db/controller/movie_details_controller.dart';
 import 'package:movie_db/routes/app_routes.dart';
 import 'package:movie_db/routes/arguments.dart';
+import 'package:movie_db/utils/data_extension.dart';
 import 'package:movie_db/widget/load_image.dart';
 
 class MovieDetailsPage extends StatelessWidget {
@@ -88,6 +89,59 @@ class MovieDetailsPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.displayMedium,
                 ),
                 const SizedBox(height: 6.0,),
+                Text(
+                  'Casts',
+                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                      fontSize: 18.0
+                  ),
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Row(
+                    children: controller.cutCastsList.map((e) => Card(
+                      margin: const EdgeInsets.only(right: 12.0),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0)
+                      ),
+                      clipBehavior: Clip.hardEdge,
+                      child: InkWell(
+                        onTap: () {
+                          Get.toNamed(AppRoutes.castDetailsPage, arguments: e.id);
+                        },
+                        child: SizedBox(
+                          width: 115.0,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              LoadImage(
+                                e.profilePath.baseImageUrl,
+                                height: 155.0,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      e.name ?? '',
+                                      style: Theme.of(context).textTheme.displayLarge,
+                                    ),
+                                    const SizedBox(height: 3.0,),
+                                    Text(
+                                      e.character ?? '',
+                                      style: Theme.of(context).textTheme.displaySmall,
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    )).toList(),
+                  ),
+                ),
                 _buildTitleText(
                     context,
                     title: 'Overview',

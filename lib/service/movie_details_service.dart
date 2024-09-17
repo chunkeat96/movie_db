@@ -1,3 +1,4 @@
+import 'package:movie_db/model/movie_casts_model.dart';
 import 'package:movie_db/model/movie_details_model.dart';
 import 'package:movie_db/model/movie_videos_model.dart';
 import 'package:movie_db/server/response_entity.dart';
@@ -18,6 +19,15 @@ class MovieDetailsService extends BaseService {
     var entity = await serverRepository.loadEntityData(
       '/movie/$movieId/videos', method: 'GET', query: {},
       decoder: (json) => MovieVideosModel.fromJson(json)
+    );
+
+    return entity;
+  }
+
+  Future<ResponseEntity<MovieCastsModel>> getMovieCasts(int movieId) async {
+    var entity = await serverRepository.loadEntityData(
+      '/movie/$movieId/credits', method: 'GET', query: {},
+      decoder: (json) => MovieCastsModel.fromJson(json)
     );
 
     return entity;

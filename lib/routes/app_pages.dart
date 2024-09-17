@@ -1,4 +1,5 @@
 import 'package:movie_db/bindings/landing_binding.dart';
+import 'package:movie_db/page/cast_details_page.dart';
 import 'package:movie_db/page/landing_page.dart';
 import 'package:get/get.dart';
 import 'package:movie_db/page/movie_details_page.dart';
@@ -26,5 +27,9 @@ class AppPage {
         name: AppRoutes.searchPage,
         page: () => const SearchPage()
     ),
+    GetPage(
+        name: AppRoutes.castDetailsPage,
+        page: () => const CastDetailsPage()
+    )
   ];
 }
