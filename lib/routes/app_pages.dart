@@ -4,6 +4,7 @@ import 'package:movie_db/page/landing_page.dart';
 import 'package:get/get.dart';
 import 'package:movie_db/page/movie_details_page.dart';
 import 'package:movie_db/page/search_page.dart';
+import 'package:movie_db/page/splash_screen_page.dart';
 import 'package:movie_db/page/web_view_page.dart';
 
 import 'app_routes.dart';
@@ -30,6 +31,10 @@ class AppPage {
     GetPage(
         name: AppRoutes.castDetailsPage,
         page: () => const CastDetailsPage()
+    ),
+    GetPage(
+        name: AppRoutes.splashScreenPage,
+        page: () => const SplashScreenPage()
     )
   ];
 }

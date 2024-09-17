@@ -99,6 +99,7 @@ class MovieDetailsPage extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: controller.cutCastsList.map((e) => Card(
                       margin: const EdgeInsets.only(right: 12.0),
                       shape: RoundedRectangleBorder(

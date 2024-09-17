@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'bindings/initial_binding.dart';
 import 'config/app_config.dart';
-import 'global/secure_local_storage.dart';
 import 'res/colors.dart';
 import 'routes/app_pages.dart';
 import 'routes/app_routes.dart';
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   String get initialRoute {
-    return Get.find<SecureLocalStorage>().accessToken.isEmpty ? AppRoutes.landingPage : AppRoutes.landingPage;
+    return AppRoutes.splashScreenPage;
   }
 
   @override

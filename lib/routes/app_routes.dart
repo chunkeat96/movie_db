@@ -5,4 +5,5 @@ class AppRoutes {
   static const String webViewPage = '/webViewPage';
   static const String searchPage = '/searchPage';
   static const String castDetailsPage = '/castDetailsPage';
+  static const String splashScreenPage = '/splashScreenPage';
 }
